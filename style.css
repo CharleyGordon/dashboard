@@ -1,0 +1,404 @@
+:root {
+  --color-main-gray: hwb(255 29% 65%);
+  --color-header-yellow: hwb(49 52% 7%);
+  --color-article-1: hwb(49 83% 5%);
+  --color-bg-article: hwb(36 88% 6%);
+  --color-header-orange: hwb(20 33% 11%);
+  --color-text1: hwb(14 24% 69%);
+  --display-toggle: none;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+:not(.sidebar, .sidebar *, button) {
+  color: var(--color-text1);
+}
+html,
+body {
+  width: 100%;
+  min-height: 100vh;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+  font-size: 1.3em;
+  font-weight: 700;
+}
+img {
+  --img-width: 5vw;
+  --clip: calc(var(--img-width) + 10px);
+  --clip2: calc(var(--clip) * 1.3);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.notifications img,
+menu.actions img,
+button {
+  cursor: pointer;
+}
+button {
+  border: none;
+  background-color: var(--color-text1);
+  padding: 0.25em 2em;
+  border-radius: 2vmax;
+  color: white;
+}
+.logo {
+  width: min(10vw, 100px);
+}
+header menu,
+header menu > *,
+nav {
+  gap: inherit;
+}
+header menu,
+header menu > *,
+menu.actions,
+[data-refference],
+.my-profile {
+  grid-auto-flow: column;
+}
+body,
+html,
+.dashboard,
+.dashboard > *,
+nav,
+menu,
+ul,
+header menu > *,
+main > *,
+main .announcements,
+.cards,
+.rounded,
+.trending-profile,
+.card,
+menu.actions,
+[data-refference],
+.my-profile {
+  display: grid;
+}
+[data-refference],
+.my-profile {
+  align-items: center;
+}
+.dashboard > * {
+  --padding: 1rem;
+  padding: var(--padding);
+  color: white;
+}
+
+menu,
+ul {
+  place-items: center start;
+  justify-content: start;
+  text-align: start;
+  list-style: none;
+  justify-content: center;
+}
+nav menu {
+  align-self: start;
+  gap: max(10px, 0.3vw);
+}
+
+.dashboard {
+  grid-template: [sidebar-start header-start] auto [header-end main-start] 1fr [main-end sidebar-end] / [sidebar-start header-start main-start] 1fr [sidebar-end header-end main-end];
+}
+nav {
+  justify-items: start;
+
+  text-transform: capitalize;
+}
+.sidebar,
+.card {
+  gap: 2rem;
+}
+.sidebar {
+  grid-area: sidebar;
+  grid-area: auto [nav-start] 1fr [nav-end] / auto;
+  justify-items: start;
+  background-color: var(--color-main-gray);
+  /* box-shadow: inset -5px 0 0.8px var(--color-header-orange); */
+}
+.sidebar[data-show] {
+  z-index: 1;
+}
+header {
+  grid-area: header;
+  background-color: var(--color-header-yellow);
+  box-shadow: inset 0 -10px 5px var(--color-header-orange);
+}
+header menu {
+  grid-template-columns: [search-start accoun-start] 0.7fr [account-end] 0.3fr [search-end notification-start] 0.5fr [notification-end];
+  gap: min(2vw, 30px);
+}
+main {
+  grid-area: main;
+  grid-template: [left-start announcements-start] auto [announcements-end trending-start] auto [trending-end] / [left-start] 3fr [left-end announcements-start trending-start] 1fr [announcements-end trending-end];
+  gap: min(3vh, 30px);
+  background-color: var(--color-bg-article);
+  overflow: auto;
+}
+main .left,
+main .announcements,
+main .trending {
+  grid-template: auto 1fr / auto;
+}
+main .announcements,
+main .trending,
+main .cards {
+  gap: 0.7rem 1rem;
+}
+main .left {
+  grid-area: left;
+}
+main .left .intro {
+  margin-block-end: 1rem;
+}
+main .announcements {
+  grid-area: announcements;
+}
+main .trending {
+  grid-area: trending;
+}
+.info,
+.buttons {
+  grid-column: notification;
+}
+.info {
+  justify-self: end;
+}
+.info,
+.info .my-profile {
+  gap: 1em;
+}
+.intro {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+.buttons {
+  justify-self: end;
+  justify-content: space-between;
+}
+
+.cards {
+  grid-template: auto / repeat(auto-fit, minmax(var(--target-size, 400px), 1fr));
+  gap: 0.4rem;
+  align-items: start;
+}
+.rounded,
+.card {
+  align-items: start;
+}
+.card {
+  grid-template: auto 1fr [actions-start] auto [actions-end] 0.2fr / 1fr;
+  position: relative;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 2%;
+  border-left: 0.3vmax solid var(--color-header-orange);
+}
+.card .project-title {
+  text-align: center;
+  font-weight: 700;
+}
+.card .text {
+  padding-inline-start: 1rem;
+  text-indent: 2ch;
+}
+menu.actions {
+  grid-area: actions-start / auto / actions-end / auto;
+  gap: 1em;
+  font-size: 0.5rem;
+  justify-self: end;
+}
+.notifications img,
+menu.actions img {
+  width: clamp(20px, 2rem, 2.5rem);
+}
+.greet {
+  grid-template: [image-start hello-start tag-start] auto [hello-end tag-end] auto [image-end] / auto 1fr;
+}
+.greet,
+.trending-profile {
+  gap: 0.4rem 0.1rem;
+  justify-self: start;
+}
+.greet .hello {
+  grid-column: hello;
+}
+.greet .hello + * {
+  grid-column: hello;
+  grid-row: hello-end;
+}
+.greet img,
+.trending-profile img,
+.info img {
+  border-radius: 50%;
+}
+.greet img,
+.trending-profile img {
+  max-width: var(--clip2);
+  max-height: var(--clip2);
+  grid-row: 1 / -1;
+}
+.greet span + span,
+.info .user {
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+.greet img,
+.my-profile *:not(img),
+.buttons,
+.info .user {
+  display: var(--display-toggle, none);
+}
+.greet span + span {
+  grid-area: nickname;
+  align-self: end;
+}
+
+.trending-profile {
+  grid-template-areas: "img tag" "img nickname";
+}
+
+.info img {
+  max-width: var(--clip);
+  max-height: var(--clip);
+}
+
+.trending-profile .tag {
+  grid-area: tag;
+}
+.trending-profile .nickname {
+  grid-area: nickname;
+}
+.trending-profile img {
+  grid-area: img;
+}
+
+.search {
+  grid-auto-columns: 24px 1fr;
+  gap: 0.3rem;
+  justify-self: stretch;
+}
+.searchbar {
+  justify-self: stretch;
+  background-color: #888;
+  border-radius: 1vmax;
+  cursor: text;
+}
+.rounded,
+.card {
+  padding: 0.5rem 2rem;
+  background-color: var(--color-article-1);
+
+  box-shadow: 2px -2px 5px var(--color-header-orange),
+    -0.5vmax 0.5vmax 5px var(--color-main-gray);
+  border-radius: 0.4vmax;
+}
+.rounded {
+  gap: 0.5rem;
+  border-radius: 1.2vmax;
+}
+[data-refference]::before {
+  max-width: 24px;
+  aspect-ratio: 1;
+}
+
+[data-refference] {
+  grid-auto-columns: 0.2fr 1fr;
+  place-self: start stretch;
+  gap: 0.4rem;
+}
+
+[data-refference="home"]::before {
+  content: url("home-circle.svg") " ";
+}
+[data-refference="profile"]::before {
+  content: url("face-man-profile.svg") " ";
+}
+[data-refference="messages"]::before {
+  content: url("message-badge-outline.svg");
+}
+[data-refference="history"]::before {
+  content: url("history.svg");
+}
+[data-refference="tasks"]::before {
+  content: url("file-tree.svg") " ";
+}
+[data-refference="communities"]::before {
+  content: url("network-outline.svg");
+}
+[data-refference="settings"]::before {
+  content: url("cog.svg") " ";
+}
+[data-refference="support"]::before {
+  content: url("comment-question.svg") " ";
+}
+[data-refference="privacy"]::before {
+  content: url("shield-outline.svg") " ";
+}
+@media (max-width: 800px) {
+  .dashboard {
+    --padding: 1vw;
+  }
+  header menu .search {
+    grid-column: span 2;
+  }
+  header menu.secondary {
+    transition: 1s 2s;
+    translate: 0 -200%;
+    margin-block-start: -100%;
+    opacity: 0;
+  }
+  main {
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "left"
+      "announcements"
+      "trending";
+  }
+  .cards,
+  .announcements,
+  .trending {
+    overflow: auto;
+    width: calc(100vw - calc(var(--padding) * 2));
+  }
+  .cards {
+    --target-size: 250px;
+    max-height: 50vh;
+  }
+  .card {
+    padding: 0.5vw;
+  }
+}
+@media (min-width: 800px) {
+  img {
+    --img-width: 2.5vw;
+  }
+  .dashboard {
+    grid-template: [sidebar-start header-start] 1.5fr [header-end main-start] 80vh [sidebar-end main-end] / [sidebar-start ] 25ch [main-start sidebar-end header-start] 1fr [main-end header-end];
+  }
+  .sidebar {
+    grid-template: auto [nav-start] 2fr 1fr [nav-end] / auto;
+  }
+}
+@media (min-width: 1000px) {
+  :root {
+    --display-toggle: grid;
+  }
+  .info .user {
+    display: inherit;
+  }
+}
